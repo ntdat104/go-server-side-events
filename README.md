@@ -1,0 +1,1 @@
+# Go server side event

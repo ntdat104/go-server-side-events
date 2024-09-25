@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Test</title>
+</head>
+<body>
+    <h1>Server-Sent Events</h1>
+    <div id="events"></div>
+
+    <script>
+        const eventSource = new EventSource("http://localhost:8080/events?ticker=HPG,MBB,SCL");
+
+        eventSource.onmessage = function(event) {
+            console.log("Message:", event);
+            const newElement = document.createElement("div");
+            newElement.textContent = `Event ID: ${event.lastEventId}, Data: ${event.data}`;
+            document.getElementById("events").appendChild(newElement);
+        };
+
+        eventSource.onerror = function(event) {
+            console.error("Error:", event);
+        };
+    </script>
+</body>
+</html>
